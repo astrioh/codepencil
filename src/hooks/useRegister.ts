@@ -24,9 +24,6 @@ export function useRegister() {
       queryClient.setQueryData([QUERY_KEY.user], user);
       navigate('/');
     },
-    onError: (error) => {
-      console.error(error);
-    },
   });
 
   return registerMutation;

@@ -4,7 +4,6 @@ import Axios from 'axios';
 
 const accessToken = storage.getTokens().accessToken;
 
-console.log(API_URL);
 export const axios = Axios.create({
   baseURL: API_URL,
   headers: {

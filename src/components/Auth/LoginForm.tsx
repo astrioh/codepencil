@@ -1,8 +1,8 @@
-import { Form } from '@/components/Elements/Form';
+import { Form } from '@/components/Form/Form';
 import { z } from 'zod';
 import { useLogin } from '@/hooks/useLogin';
-import { InputField } from '../Elements/InputField';
-import { Button } from '../Elements/Button';
+import { InputField } from '@/components/Form/InputField';
+import { Button } from '@/components/Elements/Button';
 
 type LoginValues = {
   email: string;
@@ -10,7 +10,7 @@ type LoginValues = {
 };
 
 const schema = z.object({
-  email: z.string().min(1, 'Required'),
+  email: z.string().min(1, 'Required').email(),
   password: z.string().min(1, 'Required'),
 });
 
@@ -22,7 +22,7 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const { login, isLoggingIn } = useLogin({ onSuccess: () => onSuccess && onSuccess() });
 
   return (
-    <Form<LoginValues, typeof schema> onSubmit={(values) => login(values)}>
+    <Form<LoginValues, typeof schema> onSubmit={(values) => login(values)} schema={schema}>
       {({ register, formState }) => (
         <>
           <InputField
