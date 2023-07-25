@@ -1,7 +1,8 @@
-import { queryClient } from '@/lib/react-query';
-import React, { Suspense } from 'react';
+import { PropsWithChildren, Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClientProvider } from 'react-query';
+
+import { queryClient } from '@/lib/react-query';
 
 const ErrorFallback = () => (
   <div className="text-red-500 w-screen h-screen flex justify-center items-center">
@@ -13,15 +14,11 @@ const LoadingFallback = () => (
   <div className="flex items-center justify-center w-screen h-screen">Loading...</div>
 );
 
-type AppProviderProps = {
-  children: React.ReactNode;
-};
-
-export const AppProvider = ({ children }: AppProviderProps) => {
+export const AppProvider = ({ children }: PropsWithChildren) => {
   return (
     <Suspense fallback={<LoadingFallback />}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <QueryClientProvider client={queryClient}></QueryClientProvider>
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       </ErrorBoundary>
     </Suspense>
   );
